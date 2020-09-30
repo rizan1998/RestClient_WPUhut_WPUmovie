@@ -1,0 +1,24 @@
+[
+	{
+		"nama": "rijan",
+		"umur": 22,
+		"npm": 5520116027,
+		"lulus": true,
+		"hobby": ["coding", "gaming"],
+		"pembimbing": {
+			"Pembimbing1": "Kany M Legany",
+			"pembimbing2": "finsa nurpandi"
+		}
+	},
+	{
+		"nama": "rijan",
+		"umur": 22,
+		"npm": 5520116027,
+		"lulus": true,
+		"hobby": ["coding", "gaming"],
+		"pembimbing": {
+			"Pembimbing1": "Kany M Legany",
+			"pembimbing2": "finsa nurpandi"
+		}
+	}
+]

@@ -1,0 +1,226 @@
+
+
+==>PERTEMAN KE 1
+API = Aplication Programing Interface
+adalah sebuah sekumpulan fungsi, subroutine, protokol komunikasi, atau kakas/tools
+untuk membuat perangkat lunak
+
+interface/antermuka
+bagian yang sama antara dua atau lebih komponen terpisah pada seubah sistem komputer
+
+Pengertian API
+-Antarmuka yang berupa kumpulan fungsi yang dapat di-panggil atau dijalankan oleh program lain
+-penerapan sangat luas
+   Bahasa Pemrograman
+        Koneksi ke databae MYSQL menggunakan 2 API yang berbeda di bahasa pemrograman PHP bisa
+        pakai Mysqli atau PDO
+
+   Library atau framework
+        pada CI adalah query builder $this->db->get('namatable');
+        atau Jquery untuk menggunakan ajax
+
+   Sistem Operasi
+        Base Service : kernel.dll
+        Grapgic Device Interface : win32k.says
+
+   Web API/Web Service(yang sering disebut API didalamnya ada REST-API)
+        SOAP(Simple Object Access Protocol)
+        REST(REpresentasional State Transfer)
+        Web service adalah sebuah sistem perangkat lunak yang dibuat untuk mendukung interoperabilitas
+        atau interaksi antar 2 aplikasi yang berbda melalui jaringan
+
+MYSQL = DBMS
+
+==>PERTEMUAN KE 2
+REST-API adalah gaya arsitektural parangkat lunak yang di dalam mendefinisikan aturan-aturan untuk 
+membuat web service
+ilustrasi
+API adalah penghubung
+REST API adalah aturannya
+ada REQUEST dan RESPONSE
+data yang dikirim/diterima berupa JSON
+Statless
+By Roy Fielding, disertasi PhD-nya
+Hampir selalu menggunakan HTTP
+Memungkinkan Interaksi antar mesin
+
+HTTP (HyperText Transfer Protocol )
+URL (Uniform Resource Locator) adalah alamat seubah resource yang dapat diakses di internet
+
+Kode Status 
+200 - Success
+404 - Not Found
+500 - Server Error
+
+link : https://en.wikipedia.org/wiki/List of HTTP status Codes
+
+REST DAN RESTFUL
+HTTP Method / Verbs
+get mengambil data
+post menambah data
+put mengubah data
+delete menghapus data
+
+put dan delete tidak bisa digunakan di web browser
+link : https://en.wikipedia.org/wiki/Hypertext Transfer Protocol
+
+Stateless
+-setiap requrest HTTP dilakukan secara terisolasi
+-server tidak menyimpan state apapun mengenai sesi dari client
+-setiap request dati client yang dibutuhkan server, termasuk informasi otentikasi
+
+RESTful API
+-Menggunakan HTTP Method yang benar
+-URL / endpoints-nya menggunakan kata benda, bukan kata kerja
+-Stateless
+
+==>PERTEMUAN KE 3
+JSON = Java Script Object Notaion
+
+Object pada Javascript
+Object pada Javascript adalah kumpulan Property dan Property ditulis dalam bentuk pasangan
+antara key dan value
+
+Object Literal Javascript
+
+var = Orang {
+     nama : 'rijan',
+     umur : 31,
+     Pekerjaan : nganggur,
+     sapa : function(){
+
+     }
+}
+
+jika di Json tidak bisa menggunakan function sebagai Object
+key nya harus dibungkus menggunakan ""
+
+Tipe data dari value pada JSON
+-Boolean - true/false
+-array - ["value1", "value2"]
+-String - text/unicode, dibungkus menggunakan ""
+-Object - {"key" : "value"}
+-Number - integer / float
+-Null - Null
+
+pada json tidak bisa menggunakan komentar jadi jika ada komentar maka dianggap Error
+jika ingin membuat beberapa object tidak bisa seperti ingin
+{
+     "nama" : "rijan"
+},
+{
+     "nama" : "rijan"
+}
+
+itu tidak bisa karena tidak valid maka harus ditambah sebuah array
+[
+     {
+          "nama" : "rijan"
+     },
+     {
+          "nama" : "rijan"
+     }
+]
+syntax diatas kana valid
+
+di web browser menggunakan extention json viewer agar jsonya mudah dilihat
+di php ada json_encode() dan json_decode untuk mengenerate json
+
+mengakses json
+-file_get_contents()
+
+contoh :
+$data = [
+     "a" => 1,
+     "b" => 2,
+     "c" => 3
+];
+
+echo json_encode($data);
+//hasil
+//{"a":1, "b":2, "c":3}
+
+contoh 2:
+//ambil data json dari file
+$content = file_get_contents('data.json');
+//ubah standar encodingnya
+$content = utf8_encode($content);
+//ubah string json menjadi array assosiative
+$result = json_decode($content, true);
+parameter true dibutukan untuk mengubah json jadi array assosiative
+jika tidak menggunakan true maka json yang diambil kana berbentruk object
+
+kesimpulan
+json_encode = untuk convert php ke json
+json_decode = untuk convert json ke php
+
+Javascript
+-json.stringify() untuk mengubah object menjadi json
+-json.parse() json menjadi object
+
+mengakses json menggunakan Javascript
+- ajax 
+     -XMLHttpRequest (vanila javascript/ javascript murni)
+     -Jquery 
+
+var data = {
+     a : '1',
+     b : '2',
+     c : '3'
+}
+
+console.log(JSON.stringify($data));
+
+//hasil
+// {"a":"1", "b":"2", "c":"3"}
+
+JSON.parse()
+-Me-request file JSON lalu mengubahnya menjadi object(menggunakan XMLHttpRequest)
+var xhr = new XMLHttpRequest();
+xhr.onreadeystatechange = function(){
+     if(xhr.readyState === 4 %% xhr.status === 200){
+          var data = JSON.parse(this.responseText);
+          console.log($data);
+     }
+}
+xhr.open('GET', 'data.json', true);
+xhr.send();
+
+Jquery csd yang slim tidak ada ajaxnya
+
+==>PERTEMUAN KE 4
+
+same-origin policy
+-kebijakan browser untuk mengakses dan menampilkan data/script/document dari tempat lain
+diluar domain-nya
+-membat kita tidak bisa mengakses data(.json) dari luar domain/website kita
+
+cara menanganinya adalah dengan konfigurasi CORS( Cross Origin Resouce Sharing)
+-mekanisme yang membuat kita dapat mengakses sebuah resource(data,document,script) dari 
+domain orang lain
+-caranya adalah dengan membuat server memperbolehkan adanya akses data dari luar domain
+-modifikasi access-control-allow-origin
+-membuat file .htaccess, script nya ada dibawah
+<IfModule mod_headers.c>
+     Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+akan kepake saat membuat re-servernya atau menggunakan JNP
+
+==>PERTEMUAN KE 5
+PUBLIC API adalah sebuah API(REST API) yang dapat diakses secara public, yang di dalamnya tersedia
+aturan untuk developer agar dapat mengakses data
+
+PUBLIC API
+https://any-api.com/
+https://github.com/farizdotid
+
+perhatihan otentikasi(Auth)
+-ada API tanpa otentikasi
+-key/ token (ada rest API yang jika diakses ada batasan aksesnya jika lebih maka tidak bisa dipakai
+batasan ini mempengaruhi resource dari aplikasi tersebut, bisa lebih akses banyak tapi berbayar)
+OAuth adalah ketika masuk aplikasi apapun tapi loginnya via google,fb dll
+
+-ada aturan CORS nya
+
+
